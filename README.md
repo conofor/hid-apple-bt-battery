@@ -6,6 +6,11 @@ reporting for the Apple Magic Keyboard over Bluetooth, including the
 a Magic Keyboard with Numeric Keypad (A1644, `004C:026C` over
 Bluetooth).
 
+The end result — a battery percentage under every connected device in
+the KDE Bluetooth panel:
+
+![KDE Bluetooth panel: Magic Keyboard with Numeric Keypad 92 %, MX Master 90 %, Xiaomi Smart Band 7 35 %](screenshot.png)
+
 ## Why this exists
 
 The keyboard exposes its battery level, but it never showed up on the
@@ -77,7 +82,11 @@ Two extras make reconnects behave:
 populated, the battery shows up in `upower -d`, KDE/GNOME battery
 panels and `bluetoothctl info` (via the companion [bluez
 kernel-battery plugin][companion]), and toggling Bluetooth or
-re-connecting the keyboard no longer freezes anything.
+re-connecting the keyboard no longer freezes anything.  The screenshot
+above is the whole stack working together: the driver from this
+repository, the bluez plugin, and a fix for the same blocking-read
+problem inside UPower itself (the daemon the desktop panels read),
+published as a [branch on the upower fork][upower-fix].
 
 ## Build and install
 
@@ -132,3 +141,4 @@ GPL-2.0-or-later, same as the kernel's `hid-apple.c`.
 [lore]: https://lore.kernel.org/linux-input/20260714101235.99447-1-signshop.alec@gmail.com/
 [gh]: https://github.com/hall-alec/magic-hid-bt-battery
 [companion]: https://github.com/conofor/bluez
+[upower-fix]: https://github.com/conofor/upower/tree/fix/bluetooth-hid-battery
